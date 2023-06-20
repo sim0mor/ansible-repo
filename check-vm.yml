@@ -1,0 +1,23 @@
+---
+- name: Check fresh VM
+  hosts: all
+  remote_user: ans-user
+
+  tasks:
+          - name: Collect packages info
+            package_facts:
+                    manager: apt                   
+
+          - name: Check Zabbix Install
+            debug:
+                    msg: "zabbix-agent installed"
+            when: "'zabbix-agent' in ansible_facts.packages"
+              
+          - name: Zabbix not Install
+            debug:
+                    msg: "zabbix-agent not installed"
+            when: "'zabbix-agent' not in ansible_facts.packages"
+                      
+
+
+
